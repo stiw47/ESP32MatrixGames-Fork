@@ -5,7 +5,7 @@ See this youtube video for more information: https://www.youtube.com/watch?v=apm
 Original github repo: https://github.com/s-marley/ESP32Matrix
 
 # ESP32MatrixGames PS4 Controller Fork
-This is my fork of s-marley's great software. My wish was to play these great old-school games on my DIY WS2812B 16x16 matrix, with PS4 controller, not via touch screen, so I adjusted code to my needs. 
+This is my fork of s-marley's great software. My wish was to play these great old-school games on my DIY WS2812B 16x16 matrix, with PS4 controller, not via touch screen, so I adjusted code to my needs and added support for PS4 controller.
 
 ## Credits
 * Most of the credits are going to [s-marley](https://github.com/s-marley), since he wrote the code for the games, and his repo I forked.
