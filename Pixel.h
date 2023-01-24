@@ -1,3 +1,5 @@
+// APP_PIXEL
+
 class Pixel{
 
   const uint8_t SpritealienData[96] = {
@@ -331,7 +333,8 @@ class Pixel{
         break;
     }
     
-    if(seconds % 5 == 0 && secondsTrigger != seconds) {
+    if(seconds % 5 == 0 && secondsTrigger != seconds || PS4.Right()) {
+      delay(100);
       secondsTrigger = seconds;
       Sprites.RemoveAllSprites();
       sprite = ++sprite % 6;
@@ -358,12 +361,39 @@ class Pixel{
       }
     }
 
-    if (SerialBT.available()) {
-      char keyPress = (char)SerialBT.read();
-      switch(keyPress) {
-        case 'm':
+    if(seconds % 5 == 0 && secondsTrigger != seconds || PS4.Left()) {
+      delay(100);
+      secondsTrigger = seconds;
+      Sprites.RemoveAllSprites();
+      if(--sprite < 0 ) sprite = 5;
+      switch (sprite){
+        case 0:
+          setupSmiley();
+          break;
+        case 1:
+          // Do nothing
+          break;
+        case 2:
+          setupInvader();
+          setupInvader3();
+          break;
+        case 3:
+          // Do nothing
+          break;
+        case 4:
+          setupAlien();
+          break;
+        case 5:
+          // Do nothing
+          break;
+      }
+    }
+
+    if (PS4.isConnected()) {
+        if (PS4.Options()){
           currentApp = -1;
           return false;
+          delay(500);
       }
     }
 
