@@ -1,3 +1,5 @@
+// APP_BREAKOUT
+
 class Breakout {
 
   int8_t sliderPosition;
@@ -123,21 +125,32 @@ class Breakout {
       sprBall.SetPosition(sliderPosition+1,1);
     }
     
-    if (SerialBT.available()) {
-      byte keyPress = SerialBT.read();
-      // If it's greater than 20 we sent a character instead
-      if(keyPress > 20) {
+    if (PS4.isConnected()) {
         if(startUp) {
           sprBall.SetMotion(1, ballRate, 1, ballRate);
           startUp = false;
         }
-        switch((char)keyPress) {
-          case 'm':
-            currentApp = -1;
-            return false;
+        if(PS4.Options()) {
+          currentApp = -1;
+          return false;
+          delay(500);
         }
-      } else {
-        sliderPosition = (int8_t)keyPress - 1;
+        else {
+          if (PS4.Left()) {
+            sliderPosition = sliderPosition - 1;
+            delay(40);
+          }
+          if (PS4.Right()) {
+            sliderPosition = sliderPosition + 1;
+            delay(40);
+          }
+          if (sliderPosition < -3) {
+            sliderPosition = -4;
+          }
+          if (sliderPosition > 13) {
+            sliderPosition = 14;
+          }
+        Serial.println(sliderPosition);
       }
     }
     
