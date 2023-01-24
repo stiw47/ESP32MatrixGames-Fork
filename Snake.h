@@ -1,3 +1,5 @@
+// APP_SNAKE
+
 class Snake{
 
   #define MAX_SNAKE_LENGTH 255
@@ -86,8 +88,10 @@ class Snake{
       if(ScrollingMsg.UpdateText() == -1) {
         ScrollingMsg.SetText((unsigned char *)txtSnake, sizeof(txtSnake)-1);
       }
-      if (SerialBT.available()) {
-        reset();
+      if (PS4.isConnected()) {
+        if (PS4.Up() || PS4.Down() || PS4.Left() || PS4.Right() || PS4.Square() || PS4.Cross() || PS4.Circle() || PS4.Triangle()){
+          reset();
+        }
       }
     }
     else {
@@ -100,25 +104,30 @@ class Snake{
         nextStep();
       }
 
-      if (SerialBT.available()) {
-        char keyPress = (char)SerialBT.read();
-        switch(keyPress) {
-          case 'w':
-            currentInput = UP;
-            break;
-          case 'a':
-            currentInput = LEFT;
-            break;
-          case 's':
-            currentInput = DOWN;
-            break;
-          case 'd':
-            currentInput = RIGHT;
-            break;
-          case 'm':
-            currentApp = -1;
-            return false;
+      if(PS4.isConnected()){
+        if (PS4.Right()){
+          currentInput = RIGHT;
+          delay(50);
         }
+        if (PS4.Down()){
+          currentInput = DOWN;
+          delay(50);
+        }
+        if (PS4.Up()){
+          currentInput = UP;
+          delay(50);
+        }
+        if (PS4.Left()){
+          currentInput = LEFT;
+          delay(50);
+        }
+        if (PS4.Options()){
+          currentApp = -1;
+          return false;
+          delay(500);
+        }
+        Serial.println(currentInput);
+        delay(20);
       }
     }
     
@@ -182,7 +191,7 @@ class Snake{
   
   void reset() {
     snakeLength = 1;
-    currentInput = UP;
+    currentInput = CIRCLE;
     interval = 250;
     snakeX[0] = leds.Width() / 2;
     snakeY[0] = leds.Height() / 2;
