@@ -1,4 +1,4 @@
-// Tetris application for LED matrix
+// APP_TETRIS
 
 class Tetris {
 
@@ -462,7 +462,7 @@ class Tetris {
             if (CurrentBlock.GetXChange() >= 0) // We have a current block
             {
               // Check for user input
-              if ( currentInput == UP )
+              if ( currentInput == CIRCLE )
               {
                 currentInput = NONE;
                 if ((CurrentBlock.GetCurrentFrame() % 2) == 1)
@@ -616,25 +616,30 @@ class Tetris {
         }
         FastLED.show();
       }
-      if(SerialBT.available()){
-        char keyPress = (char)SerialBT.read();
-        switch(keyPress) {
-          case 'w':
-            currentInput = UP;
-            break;
-          case 'a':
-            currentInput = LEFT;
-            break;
-          case 's':
-            currentInput = DOWN;
-            break;
-          case 'd':
-            currentInput = RIGHT;
-            break;
-          case 'm':
-            currentApp = -1;
-            return false;
+      if(PS4.isConnected()){
+        if (PS4.Right()){
+          currentInput = RIGHT;
+          delay(50);
         }
+        if (PS4.Down()){
+          currentInput = DOWN;
+          delay(50);
+        }
+        if (PS4.Circle()){
+          currentInput = CIRCLE;
+          delay(100);
+        }
+        if (PS4.Left()){
+          currentInput = LEFT;
+          delay(50);
+        }
+        if (PS4.Options()){
+          currentApp = -1;
+          return false;
+          delay(500);
+        }
+        Serial.println(currentInput);
+        delay(20);
       }
     return true;
     };
