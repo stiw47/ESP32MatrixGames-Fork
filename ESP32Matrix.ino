@@ -1,12 +1,16 @@
-// TETRIS
+// Main app - .ino file
+
 #include <FastLED.h>
 #include <LEDMatrix.h>
 #include <LEDSprites.h>
 #include <LEDText.h>
 #include <FontMatrise.h>
 #include "BluetoothSerial.h"
+#include <PS4Controller.h>
+#include <esp_bt_main.h>
+#include <esp_bt_device.h>
 
-#define LED_PIN        5
+#define LED_PIN        0
 #define COLOR_ORDER    GRB
 #define CHIPSET        WS2812B
 #define MATRIX_WIDTH   16
@@ -25,7 +29,7 @@ cLEDMatrix<MATRIX_WIDTH, -MATRIX_HEIGHT, MATRIX_TYPE> leds;
 BluetoothSerial SerialBT;
 
 // Bluetooth input
-enum btnInput {NONE, UP, DOWN, LEFT, RIGHT};
+enum btnInput {NONE, UP, DOWN, LEFT, RIGHT, CROSS, CIRCLE};
 btnInput currentInput = NONE;
 
 #include "Tetris.h"
@@ -37,7 +41,20 @@ btnInput currentInput = NONE;
 void setup()
 {
   Serial.begin(115200);
-  SerialBT.begin("ESP32Matrix");
+  PS4.begin();
+  const uint8_t* address = esp_bt_dev_get_address();
+  char str[100];
+  sprintf(str, "ESP32's Bluetooth MAC address is - %02x:%02x:%02x:%02x:%02x:%02x", address[0],address[1],address[2],address[3],address[4],address[5]);
+  Serial.println(" ");
+  Serial.println("##############################################################################################################");
+  Serial.println(" ");
+  Serial.println("Ready! Please connect your PS4 controller.");
+  Serial.println(str);
+  Serial.println("Above MAC address should be written to PS4 controller with Sixaxis Pair Tool, in order to be able to connect.");
+  Serial.println("https://sixaxispairtool.software.informer.com/download/");
+  Serial.println(" ");
+  Serial.println("##############################################################################################################");
+  Serial.println(" ");
   
   FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds[0], leds.Size());
   FastLED.setMaxPowerInVoltsAndMilliamps(5,1000);
