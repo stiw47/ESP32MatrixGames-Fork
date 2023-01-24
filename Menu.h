@@ -1,3 +1,5 @@
+// APP_MENU
+
 class Menu {
   cLEDText ScrollingMsg;
   unsigned char txtMenu[12];
@@ -35,24 +37,26 @@ class Menu {
     
     displayMenu();
         
-    if(SerialBT.available()){
-        char keyPress = (char)SerialBT.read();
-        switch(keyPress) {
-          case 'a':
-            if(--menuItem < 0 ) menuItem = 2;
-            menuChanged(menuItem);
-            break;
-          case 'd':
-            menuItem = ++menuItem % 4;
-            menuChanged(menuItem);
-            break;
-          case 'r':
-          case 'y':
-          case 'g':
-          case 'b':
-            currentApp = menuItem;
-            return false;
-        }
+    if(PS4.isConnected()){
+      if (PS4.Left()){
+        currentInput = LEFT;
+        if(--menuItem < 0 ) menuItem = 3;
+        menuChanged(menuItem);
+        delay(200);
+      }
+      if (PS4.Right()){
+        currentInput = RIGHT;
+        menuItem = ++menuItem % 4;
+        menuChanged(menuItem);
+        delay(200);
+      }
+      if (PS4.Cross()){
+        currentInput = CROSS;
+        currentApp = menuItem;
+        delay(500);
+        return false;
+      }
+      Serial.println(currentInput);
     }
     return true;
   }
