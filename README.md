@@ -1,6 +1,6 @@
-# ESP32Matrix (original README from original repo):
-ESP32 code to run on a 16x16 WS2812B matrix with Tetris, Snake, Breakout and Bluetooth control via an Android app.
-See this youtube video for more information: https://www.youtube.com/watch?v=apmOSQmeKJA
+### ESP32Matrix (original README from original repo):
+*ESP32 code to run on a 16x16 WS2812B matrix with Tetris, Snake, Breakout and Bluetooth control via an Android app.
+See this youtube video for more information: https://www.youtube.com/watch?v=apmOSQmeKJA*
 
 Original github repo: https://github.com/s-marley/ESP32Matrix
 
