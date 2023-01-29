@@ -14,8 +14,9 @@ This is my fork of s-marley's great software. My wish was to play these great ol
 
 ## Usage
 1. I assume that you already have (or made) some 16x16 matrix and that you know to connect it. If not, then watch [first s-marley's (great) video](https://www.youtube.com/watch?v=_0a9JZLGu4M).
-2. Regarding LEDMatrix, LEDText, LEDSprites and PS4 libraries - there will be needed some slightly modifications. Watch [s-marley's second video](https://www.youtube.com/watch?v=cqmWfE1DSyM) for LED libraries and [un0038998's video](https://www.youtube.com/watch?v=dRysvxQfVDw) for PS4 library.
-3. Connect your ESP32 board to Arduino IDE and upload the sketch. Connect GPIO0 from ESP32 to data line on matrix (or change GPIO0 in code to fit your need)
+2. Please use v1.0.6 of ESP32 boards in Arduino IDE. In my case, it wont compile with v2.0.0 and above
+3. Regarding LEDMatrix, LEDText, LEDSprites and PS4 libraries - there will be needed some slightly modifications. Watch [s-marley's second video](https://www.youtube.com/watch?v=cqmWfE1DSyM) for LED libraries and [un0038998's video](https://www.youtube.com/watch?v=dRysvxQfVDw) for PS4 library.
+4. Connect your ESP32 board to Arduino IDE and upload the sketch. Connect GPIO0 from ESP32 to data line on matrix (or change GPIO0 in code to fit your need)
 
 ## Controls
 * Left, Right, Down, Up (Analog not implemented)
